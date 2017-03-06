@@ -9,7 +9,7 @@
       "args": [
         "run",
         "changeWallpaper.go",
-        "/home/cpthgli/Pictures/Wallpaper"
+        "~/Pictures/Wallpapers"
       ],
       "isShellCommand": true,
       "isTestCommand": true
@@ -27,7 +27,7 @@
       "taskName": "exec",
       "command": "./ChangeWallpaper",
       "args": [
-        "/home/cpthgli/Pictures/Wallpaper"
+        "~/Pictures/Wallpapers"
       ],
       "isShellCommand": true
     }

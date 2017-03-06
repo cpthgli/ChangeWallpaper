@@ -48,11 +48,17 @@ func main() {
 		log.SetOutput(io.MultiWriter(logfile, os.Stdout))
 	}
 	log.SetFlags(log.Ldate | log.Ltime | log.Lshortfile)
-	root, err := filepath.Abs(flag.Arg(0))
-	log.Printf("INFO Specified root path is %v", root)
-	if err != nil {
-		log.Fatalf("ERROR %v", err)
+	var root string
+	if flag.Arg(0)[:1] == "~" {
+		root = filepath.Join(os.Getenv("HOME"), flag.Arg(0)[1:])
+	} else {
+		var err error
+		root, err = filepath.Abs(flag.Arg(0))
+		if err != nil {
+			log.Fatalf("ERROR %v", err)
+		}
 	}
+	log.Printf("INFO Specified root path is %v", root)
 	paths := getImageFilePaths(root)
 	path := ""
 	if len(paths) != 0 {
