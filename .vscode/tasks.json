@@ -1,0 +1,35 @@
+{
+  // See https://go.microsoft.com/fwlink/?LinkId=733558
+  // for the documentation about the tasks.json format
+  "version": "0.1.0",
+  "tasks": [
+    {
+      "taskName": "run",
+      "command": "go",
+      "args": [
+        "run",
+        "changeWallpaper.go",
+        "/home/cpthgli/Pictures/Wallpaper"
+      ],
+      "isShellCommand": true,
+      "isTestCommand": true
+    },
+    {
+      "taskName": "build",
+      "command": "go",
+      "args": [
+        "build"
+      ],
+      "isShellCommand": true,
+      "isBuildCommand": true
+    },
+    {
+      "taskName": "exec",
+      "command": "./ChangeWallpaper",
+      "args": [
+        "/home/cpthgli/Pictures/Wallpaper"
+      ],
+      "isShellCommand": true
+    }
+  ]
+}
