@@ -21,6 +21,7 @@ func hasSuffixes(s string, suffixes []string) bool {
 	}
 	return false
 }
+
 func getImageFilePaths(root string) []string {
 	fileInfos, err := ioutil.ReadDir(root)
 	if err != nil {
@@ -36,6 +37,7 @@ func getImageFilePaths(root string) []string {
 	}
 	return paths
 }
+
 func main() {
 	isLoging := flag.Bool("log", false, "write log for bool")
 	flag.Parse()
@@ -48,6 +50,7 @@ func main() {
 		log.SetOutput(io.MultiWriter(logfile, os.Stdout))
 	}
 	log.SetFlags(log.Ldate | log.Ltime | log.Lshortfile)
+
 	var root string
 	if flag.Arg(0)[:1] == "~" {
 		root = filepath.Join(os.Getenv("HOME"), flag.Arg(0)[1:])
@@ -59,6 +62,7 @@ func main() {
 		}
 	}
 	log.Printf("INFO Specified root path is %v", root)
+
 	paths := getImageFilePaths(root)
 	path := ""
 	if len(paths) != 0 {
@@ -66,15 +70,28 @@ func main() {
 		r := rand.Intn(len(paths))
 		path = filepath.Join(root, paths[r])
 	}
-	command := exec.Command(
+
+	setDesktopWallpaper := exec.Command(
 		"sh",
 		"-c",
 		"dconf write /org/gnome/desktop/background/picture-uri \"'"+path+"'\"",
 	)
-	out, err := command.Output()
+	out, err := setDesktopWallpaper.Output()
 	if err != nil {
 		log.Fatalf("ERROR %v", err)
 	}
-	log.Printf("INFO Command output %v", out)
-	log.Printf("INFO Set wallpaper %v", path)
+	log.Printf("INFO SetDesktopWallpaper output %v", out)
+	log.Printf("INFO Set desktop wallpaper %v", path)
+
+	setLoginWallpaper := exec.Command(
+		"sh",
+		"-c",
+		"dconf write /org/gnome/desktop/screensaver/picture-uri \"'"+path+"'\"",
+	)
+	out, err = setLoginWallpaper.Output()
+	if err != nil {
+		log.Fatalf("ERROR %v", err)
+	}
+	log.Printf("INFO SetLoginWallpaper outpot %v", out)
+	log.Printf("INFO Set login wallpaper %v", path)
 }
