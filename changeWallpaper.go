@@ -39,9 +39,9 @@ func getImageFilePaths(root string) []string {
 }
 
 func main() {
-	isLoging := flag.Bool("log", false, "write log for bool")
+	isLogging := flag.Bool("log", false, "write log for bool")
 	flag.Parse()
-	if *isLoging {
+	if *isLogging {
 		logfile, err := os.OpenFile("./debug.log", os.O_APPEND|os.O_CREATE|os.O_WRONLY, 0666)
 		if err != nil {
 			panic("cannot open debug.log:" + err.Error())
