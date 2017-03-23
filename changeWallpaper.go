@@ -42,7 +42,8 @@ func main() {
 	isLogging := flag.Bool("log", false, "write log for bool")
 	flag.Parse()
 	if *isLogging {
-		logfile, err := os.OpenFile("./debug.log", os.O_APPEND|os.O_CREATE|os.O_WRONLY, 0666)
+		flag := os.O_APPEND | os.O_CREATE | os.O_WRONLY
+		logfile, err := os.OpenFile("./debug.log", flag, 0666)
 		if err != nil {
 			panic("cannot open debug.log:" + err.Error())
 		}
